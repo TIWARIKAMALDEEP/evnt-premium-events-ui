@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EVNT — Premium Event Management</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ========== LOADER ========== -->
+  <div id="loader" class="loader">
+    <div class="loader-inner">
+      <span class="loader-logo">EVNT</span>
+      <div class="loader-bar"><div class="loader-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- ========== TOAST ========== -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar" id="navbar">
+    <a href="#home" class="nav-logo">EV<span>NT</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" class="nav-link active">Home</a></li>
+      <li><a href="#events" class="nav-link">Events</a></li>
+      <li><a href="#bookings" class="nav-link">My Bookings</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span class="theme-icon">☾</span>
+      </button>
+      <button class="nav-cta" onclick="scrollToSection('events')">Explore Events</button>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="hero-orb orb-1"></div>
+      <div class="hero-orb orb-2"></div>
+      <div class="hero-orb orb-3"></div>
+      <div class="hero-grid"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Premium Event Experiences
+      </div>
+      <h1 class="hero-title">
+        Curate Moments<br />
+        <span class="hero-title-accent">Worth Remembering</span>
+      </h1>
+      <p class="hero-subtitle">
+        Discover, book, and attend world-class events — from tech summits<br class="hide-mobile" />
+        to cultural galas — all in one beautifully crafted platform.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="scrollToSection('events')">
+          <span>Browse Events</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <button class="btn-ghost" onclick="scrollToSection('bookings')">My Bookings</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">200+</span><span class="stat-label">Events</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">50K+</span><span class="stat-label">Attendees</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">98%</span><span class="stat-label">Satisfaction</span></div>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ========== EVENTS SECTION ========== -->
+  <section class="events-section" id="events">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Upcoming Events</div>
+        <h2 class="section-title">Find Your Next<br /><span>Experience</span></h2>
+        <p class="section-sub">Handpicked events across categories — curated for curious minds.</p>
+      </div>
+
+      <!-- Search & Filter -->
+      <div class="filter-bar" id="filterBar">
+        <div class="search-wrap">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search events…" />
+          <button class="search-clear" id="searchClear" style="display:none">✕</button>
+        </div>
+        <div class="filter-group">
+          <select id="locationFilter" class="filter-select">
+            <option value="">All Locations</option>
+          </select>
+          <select id="dateFilter" class="filter-select">
+            <option value="">All Dates</option>
+            <option value="this-month">This Month</option>
+            <option value="next-month">Next Month</option>
+            <option value="future">Future</option>
+          </select>
+          <select id="categoryFilter" class="filter-select">
+            <option value="">All Categories</option>
+          </select>
+        </div>
+        <button class="btn-reset" id="resetFilters">Reset</button>
+      </div>
+
+      <!-- Events Grid -->
+      <div class="events-grid" id="eventsGrid">
+        <!-- Dynamically rendered -->
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" id="emptyState" style="display:none">
+        <div class="empty-icon">🔍</div>
+        <h3>No events found</h3>
+        <p>Try adjusting your search or filters</p>
+        <button class="btn-primary" onclick="resetAllFilters()">Clear Filters</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MY BOOKINGS ========== -->
+  <section class="bookings-section" id="bookings">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">Your Dashboard</div>
+        <h2 class="section-title">My <span>Bookings</span></h2>
+        <p class="section-sub">All your booked events in one place — with QR codes for entry.</p>
+      </div>
+      <div class="bookings-grid" id="bookingsGrid">
+        <!-- Dynamically rendered -->
+      </div>
+      <div class="empty-state" id="bookingsEmpty" style="display:none">
+        <div class="empty-icon">🎟️</div>
+        <h3>No bookings yet</h3>
+        <p>Book an event to see it here</p>
+        <button class="btn-primary" onclick="scrollToSection('events')">Browse Events</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT / FOOTER ========== -->
+  <footer class="footer" id="contact">
+    <div class="footer-glow"></div>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">EV<span>NT</span></div>
+          <p>Creating extraordinary experiences for curious minds. Join thousands of event-goers who trust EVNT.</p>
+          <div class="footer-socials">
+            <a href="#" class="social-btn" aria-label="Twitter">𝕏</a>
+            <a href="#" class="social-btn" aria-label="Instagram">◈</a>
+            <a href="#" class="social-btn" aria-label="LinkedIn">in</a>
+          </div>
+        </div>
+        <div class="footer-links-group">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="#events">Browse Events</a></li>
+            <li><a href="#bookings">My Bookings</a></li>
+            <li><a href="#">Host an Event</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact-form">
+          <h4>Get in Touch</h4>
+          <div class="contact-field">
+            <input type="text" placeholder="Your name" class="contact-input" />
+          </div>
+          <div class="contact-field">
+            <input type="email" placeholder="Email address" class="contact-input" />
+          </div>
+          <div class="contact-field">
+            <textarea placeholder="Your message…" class="contact-input contact-textarea"></textarea>
+          </div>
+          <button class="btn-primary" onclick="handleContactSubmit(event)">Send Message</button>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 EVNT. All rights reserved. Built with passion.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== EVENT DETAIL MODAL ========== -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="eventModal">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div class="modal-inner" id="modalContent">
+        <!-- Dynamically rendered -->
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
